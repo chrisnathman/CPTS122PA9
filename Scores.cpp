@@ -23,7 +23,10 @@ score::~score()
 
 void score::importScore(fstream &score)
 {
-	if (!score.is_open())score.open;
+	if (!score.is_open())
+	{
+		score.open("scores.cvs");
+	}
 
 	while (!score.eof())
 	{
@@ -41,21 +44,21 @@ void score::importScore(fstream &score)
 		highScore.insert(temp_node);
 	}
 
-	if (!score.is_open())score.close;
+	if (!score.is_open())score.close();
 
 }
 void score::exportScore(fstream &score)
 {
-	if (!score.is_open())score.open;
+	if (!score.is_open())score.open("scores.cvs");
 	score.clear();
 
-	node temp = highScore.getNode;
+	node *temp = highScore.getNode();
 
-	while (!temp.isEmpty())
+	while (!temp->isEmpty())
 	{
-		score << temp.mName << "," << temp.mScore << std::endl;
-		temp = *temp.mpNext;
+		score << temp->mName << "," << temp->mScore << std::endl;
+		temp = temp->mpNext;
 	}
 
-	if (!score.is_open())score.close;
+	if (!score.is_open())score.close();
 }

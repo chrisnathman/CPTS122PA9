@@ -6,7 +6,7 @@
 using std::string;
 using std::fstream;
 using std::cout;
-#include "List.h";
+#include "List.h"
 
 class score
 {
