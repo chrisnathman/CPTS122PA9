@@ -3,6 +3,7 @@
 #include <iostream>
 #include <string>
 using std::string;
+using std::fstream;
 using std::cout;
 #include "List.h";
 
@@ -12,13 +13,15 @@ public:
 	score();
 	~score();
 
-	void importScore();
-	void exportScore();
+	void importScore(fstream score);
+	void exportScore(fstream score);
 
 	void setScore(string data);
 	string getScore();
 
-
+	
 private:
 
-}
+	ScoreList highScore;
+
+};

@@ -6,6 +6,12 @@ ScoreList::ScoreList()
 	pHead = nullptr;
 }
 
+ScoreList::ScoreList(string data)
+{
+	pHead->mScore = data;
+	pHead = nullptr;
+}
+
 
 ScoreList::~ScoreList()
 {
