@@ -11,29 +11,51 @@
 //}
 #include "Scores.h"
 
+
 score::score()
 {
 
 }	
-~score::score()
+score::~score()
 {
 
 }
 
-void score::importScore(fstream score)
+void score::importScore(fstream &score)
 {
+	if (!score.is_open())score.open;
+
+	while (!score.eof())
+	{
+		string readString;
+		node* temp_node = new node;
+
+		//name,score
+		getline(score, readString, ',');//name
+		temp_node->mName = readString;
+
+		getline(score, readString);
+		temp_node->mScore = readString;
+
+		if (score.eof()) break;
+		highScore.insert(temp_node);
+	}
+
+	if (!score.is_open())score.close;
 
 }
-void score::exportScore(fstream score)
+void score::exportScore(fstream &score)
 {
+	if (!score.is_open())score.open;
+	score.clear();
 
-}
+	node temp = highScore.getNode;
 
-void score::setScore(string data)
-{
+	while (!temp.isEmpty())
+	{
+		score << temp.mName << "," << temp.mScore << std::endl;
+		temp = *temp.mpNext;
+	}
 
-}
-string score::getScore()
-{
-
+	if (!score.is_open())score.close;
 }

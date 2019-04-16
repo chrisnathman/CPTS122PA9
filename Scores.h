@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 using std::string;
 using std::fstream;
 using std::cout;
@@ -13,12 +14,10 @@ public:
 	score();
 	~score();
 
-	void importScore(fstream score);
-	void exportScore(fstream score);
+	void importScore(fstream &score);
+	void exportScore(fstream &score);
 
-	void setScore(string data);
-	string getScore();
-
+	void setScore(string name, string score);
 	
 private:
 

@@ -9,10 +9,13 @@ using std::cout;
 struct node
 {
 	string mScore;
+	string mName;
 	node *mpNext;
+
+	node();
+	bool isEmpty();
 	
 };
-
 
 
 
@@ -20,11 +23,16 @@ class ScoreList
 {
 public:
 	ScoreList();//constructor for linked list
-	ScoreList(string data);//constructor for linked list
+	ScoreList(string name, string score);//constructor for linked list
 	~ScoreList();
-	node* makeNode(string score);//creates node for list
-	void insert(string score);//insert items into list
+	
+	node* makeNode(string score, string name);//creates node for list
+	void insert(node* newnode);//insert items into list
+	
 	void printList();
+	bool isEmpty();
+
+	node *getNode();
 	
 
 private:

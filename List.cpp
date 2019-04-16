@@ -6,9 +6,10 @@ ScoreList::ScoreList()
 	pHead = nullptr;
 }
 
-ScoreList::ScoreList(string data)
+ScoreList::ScoreList(string name, string score)
 {
-	pHead->mScore = data;
+	pHead->mScore = score;
+	pHead->mName = name;
 	pHead = nullptr;
 }
 
@@ -27,29 +28,28 @@ ScoreList::~ScoreList()
 }
 
 //creates a node to be inserted into list
-node* ScoreList::makeNode(string score)
+node* ScoreList::makeNode(string score, string name)
 {
 	node *pMem = new node;
 	pMem->mScore = score;
+	pMem->mName = name;
 	pMem->mpNext = nullptr;
 
 	return pMem;
 }
 
 //inserts items at front
-void ScoreList::insert(string score)
+void ScoreList::insert(node *newnode)
 {
-	node *pMem = makeNode(score);
-
 	if (pHead == nullptr)
 	{
-		pHead = pMem;
+		pHead = newnode;
 	}
 
 	else
 	{
-		pMem->mpNext = pHead;
-		pHead = pMem;
+		newnode->mpNext = pHead;
+		pHead = newnode;
 	}
 }
 
@@ -57,12 +57,40 @@ void ScoreList::insert(string score)
 void ScoreList::printList()
 {
 	node *pTraverse = this->pHead;
-
+	int i = 1;
 	while (pTraverse != nullptr)
 	{
-		cout << pTraverse->mScore << " ";
+		cout <<i<<") "<< pTraverse->mName << " "<<pTraverse->mScore <<std::endl;
+		i++;
 
 		pTraverse = pTraverse->mpNext;
 	}
 
+}
+
+bool ScoreList::isEmpty()
+{
+	if (pHead == nullptr)
+	{
+		return true;
+	}
+	return false;
+}
+
+node* ScoreList::getNode()
+{
+	return pHead;
+}
+
+bool node::isEmpty()
+{
+	if (this->mName[0] == '\0')return true;
+	return false;
+}
+
+node::node()
+{
+	mScore[0] = '\0';
+	mName[0] = '\0';
+	mpNext = nullptr;
 }
