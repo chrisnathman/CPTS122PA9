@@ -149,6 +149,7 @@
     <ClInclude Include="Cannon.h" />
     <ClInclude Include="List.h" />
     <ClInclude Include="Scores.h" />
+    <ClInclude Include="Setting.h" />
     <ClInclude Include="SFML-2.5.1-windows-vc15-64-bit\SFML-2.5.1\examples\shader\Effect.hpp" />
     <ClInclude Include="SFML-2.5.1-windows-vc15-64-bit\SFML-2.5.1\include\SFML\Audio.hpp" />
     <ClInclude Include="SFML-2.5.1-windows-vc15-64-bit\SFML-2.5.1\include\SFML\Audio\AlResource.hpp" />

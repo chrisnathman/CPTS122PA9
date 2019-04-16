@@ -389,6 +389,9 @@
     <ClInclude Include="SFML-2.5.1-windows-vc15-64-bit\SFML-2.5.1\include\SFML\Window.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Setting.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="scores.csv">
