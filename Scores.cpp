@@ -62,3 +62,16 @@ void score::exportScore(fstream &score)
 
 	if (!score.is_open())score.close();
 }
+
+void score::addScore(string score)
+{
+	string name;
+	cout << "Enter your Name" << std::endl;
+	std::cin >> name;
+	
+	node* temp = new node;
+	temp->mName = name;
+	temp->mScore = score;
+
+	highScore.insert(temp);
+}

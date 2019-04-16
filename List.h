@@ -27,7 +27,7 @@ public:
 	~ScoreList();
 	
 	node* makeNode(string score, string name);//creates node for list
-	void insert(node* newnode);//insert items into list
+	void insert(node* head, node* newnode);//insert items into list
 	
 	void printList();
 	bool isEmpty();

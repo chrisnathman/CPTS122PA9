@@ -16,8 +16,7 @@ public:
 
 	void importScore(fstream &score);
 	void exportScore(fstream &score);
-
-	void setScore(string name, string score);
+	void addScore(string score);
 	
 private:
 
