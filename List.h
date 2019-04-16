@@ -10,6 +10,7 @@ struct node
 {
 	string mScore;
 	node *mpNext;
+	
 };
 
 
