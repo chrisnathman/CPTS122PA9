@@ -13,6 +13,8 @@ struct node
 };
 
 
+
+
 class ScoreList
 {
 public:
@@ -22,6 +24,7 @@ public:
 	node* makeNode(string score);//creates node for list
 	void insert(string score);//insert items into list
 	void printList();
+	
 
 private:
 	node *pHead;

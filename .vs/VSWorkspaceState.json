@@ -1,6 +1,12 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\SFML-2.5.1-windows-vc15-64-bit",
+    "\\SFML-2.5.1-windows-vc15-64-bit\\SFML-2.5.1",
+    "\\SFML-2.5.1-windows-vc15-64-bit\\SFML-2.5.1\\lib",
+    "\\SFML-2.5.1-windows-vc15-64-bit\\SFML-2.5.1\\lib\\cmake",
+    "\\SFML-2.5.1-windows-vc15-64-bit\\SFML-2.5.1\\lib\\cmake\\SFML"
   ],
+  "SelectedNode": "\\List.h",
   "PreviewInSolutionExplorer": false
 }
