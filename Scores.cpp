@@ -25,7 +25,7 @@ void score::importScore(fstream &score)
 {
 	if (!score.is_open())
 	{
-		score.open("scores.cvs");
+		score.open("scores.csv");
 	}
 
 	while (!score.eof())
@@ -49,7 +49,7 @@ void score::importScore(fstream &score)
 }
 void score::exportScore(fstream &score)
 {
-	if (!score.is_open())score.open("scores.cvs");
+	if (!score.is_open())score.open("scores.csv");
 	score.clear();
 
 	node *temp = highScore.getNode();

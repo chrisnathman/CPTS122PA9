@@ -39,7 +39,7 @@ node* ScoreList::makeNode(string score, string name)
 }
 
 //inserts items at front
-void ScoreList::insert(node * head, node *newnode)
+void ScoreList::insert(node *newnode)
 {
 	if (pHead->isEmpty()) //if list starts empty, should also catch the recursive end of list
 	{
@@ -47,15 +47,10 @@ void ScoreList::insert(node * head, node *newnode)
 	}
 	else
 	{
-		if (newnode->mScore > newnode->mScore)
-		{
-			newnode->mpNext = pHead;
-			pHead = newnode;
-		}
-		else if (newnode->mScore <= newnode->mScore)
-		{
-			insert(pHead->mpNext, newnode);
-		}
+		node * pCurr = this->pHead;
+		while (pCurr->mpNext != nullptr && pCurr->mpNext->mScore.compare(newnode->mScore) > 0) pCurr = pCurr->mpNext;
+		newnode->mpNext = pCurr->mpNext;
+		pCurr->mpNext = newnode;
 	}
 }
 

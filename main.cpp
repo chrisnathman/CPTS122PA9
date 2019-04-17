@@ -3,6 +3,8 @@
 
 int main(int argc, char *argv[])
 {
+	srand(time(NULL));
+
 	GameWrapper g;
 	g.playGame();
 	return 0;
