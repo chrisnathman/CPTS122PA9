@@ -1,3 +1,11 @@
+/*
+CPTS 122 PA 9
+
+Authors: Christopher Nathman, Tala Karaki, Erik Handeland, Nick Enriquez
+
+*/
+
+
 #include "GameWrapper.h"
 #include "Test.h"
 
