@@ -21,46 +21,52 @@ score::~score()
 
 }
 
-void score::importScore(fstream &score)
+void score::importScore()
 {
-	if (!score.is_open())
-	{
-		score.open("scores.csv");
-	}
+	fstream input;
 
-	while (!score.eof())
+	input.open("scores.csv");
+
+	while (!input.eof())
 	{
 		string readString;
 		node* temp_node = new node;
 
 		//name,score
-		getline(score, readString, ',');//name
+		getline(input, readString, ',');//name
 		temp_node->mName = readString;
 
-		getline(score, readString);
+		if (input.eof()) break; 
+
+		getline(input, readString);
 		temp_node->mScore = readString;
 
-		if (score.eof()) break;
 		highScore.insert(temp_node);
 	}
 
-	if (!score.is_open())score.close();
+	input.close();
 
 }
-void score::exportScore(fstream &score)
+void score::exportScore()
 {
-	if (!score.is_open())score.open("scores.csv");
-	score.clear();
+	// following 3 lines are used to completely erase the previous contents of scores.csv
+	std::ofstream clearFile;
+	clearFile.open("scores.csv", std::ofstream::out | std::ofstream::trunc);
+	clearFile.close();
 
-	node *temp = highScore.getNode();
 
-	while (!temp->isEmpty())
+	std::fstream output;
+	output.open("scores.csv");
+
+	node *temp = this->highScore.getNode();
+
+	while (temp != nullptr)
 	{
-		score << temp->mName << "," << temp->mScore << std::endl;
+		output << temp->mName << "," << temp->mScore << std::endl;
 		temp = temp->mpNext;
 	}
 
-	if (!score.is_open())score.close();
+	output.close();
 }
 
 void score::addScore(string score)
@@ -74,4 +80,8 @@ void score::addScore(string score)
 	temp->mScore = score;
 
 	highScore.insert(temp);
+}
+
+void score::printScores() {
+	this->highScore.printList();
 }

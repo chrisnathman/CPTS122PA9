@@ -7,8 +7,7 @@ GameWrapper::~GameWrapper() {
 
 void GameWrapper::playGame() {
 	
-	std::fstream input;
-	scores.importScore(input); // load previous high scores
+	scores.importScore(); // load previous high scores
 
 	sf::RenderWindow window(sf::VideoMode(800,1000), "Clickie Boi");
 

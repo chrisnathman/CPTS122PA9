@@ -1,13 +1,18 @@
 #include "GameWrapper.h"
+#include "Test.h"
 
 
 int main(int argc, char *argv[])
 {
-	srand(time(NULL));
+	//Test::testAddScore();
+	//Test::testExportScores();
+	Test::testImportScores();
 
-	GameWrapper g;
-	g.playGame();
-	return 0;
+	//srand(time(NULL));
+
+	//GameWrapper g;
+	//g.playGame();
+	//return 0;
 }
 
 

@@ -14,9 +14,10 @@ public:
 	score();
 	~score();
 
-	void importScore(fstream &score);
-	void exportScore(fstream &score);
+	void importScore();
+	void exportScore();
 	void addScore(string score);
+	void printScores();
 	
 private:
 
