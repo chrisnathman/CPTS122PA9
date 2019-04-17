@@ -1,12 +1,10 @@
-#include <SFML/Window.hpp>
+#include "GameWrapper.h"
 
 
 int main(int argc, char *argv[])
 {
-
-
-	//hi
-
+	GameWrapper g;
+	g.playGame();
 	return 0;
 }
 

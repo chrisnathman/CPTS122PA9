@@ -1,4 +1,4 @@
 #pragma once
 
-#include <shape.hpp>
+#include <SFML/Graphics.hpp>
 
