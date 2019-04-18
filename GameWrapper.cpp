@@ -56,8 +56,6 @@ void GameWrapper::displayMenu() {
 }
 
 void GameWrapper::playGame() {
-	
-	scores.importScore(); // load previous high scores
 
 	sf::RenderWindow window(sf::VideoMode(800,1000), "Clickie Boi");
 
