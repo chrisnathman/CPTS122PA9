@@ -3,16 +3,16 @@
 #pragma once
 #include "Cannon.h"
 #include "Scores.h"
-#include "Setting.h"
 #include <SFML/Window.hpp>
 #include "Grid.h"
 
-enum MenuOptions { Play = 1, Instructions = 2, Settings = 3, Highscores = 4, Exit = 5};
+enum MenuOptions { Play = 1, Instructions = 2, Difficulty = 3, Highscores = 4, Exit = 5};
 
 class GameWrapper {
 private:
 	score scores;
-	
+	int difficulty; //4 easy 5 mid 6 hard | score modifers *1, *1.5 *2
+	int scorePerBall; 
 
 public:
 	GameWrapper();
@@ -22,6 +22,7 @@ public:
 	void displayMenu();
 	void playGame();
 	void printInstructions();
+	void setDifficulty();
 	int getMenuOption(int min, int max);
 };
 
