@@ -14,13 +14,13 @@ int main(int argc, char *argv[])
 {
 	//Test::testAddScore();
 	//Test::testExportScores();
-	Test::testImportScores();
+	//Test::testImportScores();
 
-	//srand(time(NULL));
+	srand(time(NULL));
 
-	//GameWrapper g;
-	//g.playGame();
-	//return 0;
+	GameWrapper g;
+	g.runApp();
+	return 0;
 }
 
 

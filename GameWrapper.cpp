@@ -6,23 +6,34 @@ GameWrapper::~GameWrapper() {
 }
 
 void GameWrapper::runApp() {
+
+	this->scores.importScore();
+
 	bool exit = false;
 	while (!exit) {
-		switch (this->getMenuOption(1, 4)) {
+
+		this->displayMenu();
+
+		switch (this->getMenuOption(1, 5)) {
 
 		case Play:
+			this->playGame();
 			break;
 
 		case Instructions:
+
 			break;
 
 		case Settings:
 			break;
 
 		case Highscores:
+			this->scores.printScores();
 			break;
 
 		case Exit:
+			exit = true;
+			this->scores.exportScore();
 			break;
 
 		}
