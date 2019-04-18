@@ -330,4 +330,4 @@ ASALocalRun/
 .mfractor/
 
 # visual studio project files
-.vcxproj
+*.vcxproj
