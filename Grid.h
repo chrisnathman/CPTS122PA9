@@ -7,10 +7,10 @@
 class Grid {
 
 private:
-	std::vector<sf::CircleShape> myvector;
+	Ball arr[5][10];
 
 public:
-	Grid();
+	Grid(int colors = 4);
 	~Grid();
 
 	void drawGrid(sf::RenderWindow & window);

@@ -1,3 +1,5 @@
+#ifndef LIST_H
+#define LIST_H
 #pragma once
 
 #include <iostream>
@@ -39,3 +41,5 @@ private:
 	node *pHead;
 
 };
+
+#endif

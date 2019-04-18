@@ -1,3 +1,5 @@
+#ifndef SCORES_H
+#define SCORES_H
 #pragma once
 
 #include <iostream>
@@ -24,3 +26,5 @@ private:
 	ScoreList highScore;
 
 };
+
+#endif

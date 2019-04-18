@@ -12,6 +12,8 @@ void GameWrapper::runApp() {
 	bool exit = false;
 	while (!exit) {
 
+		system("cls");
+
 		this->displayMenu();
 
 		switch (this->getMenuOption(1, 5)) {
@@ -21,14 +23,17 @@ void GameWrapper::runApp() {
 			break;
 
 		case Instructions:
-
+			system("cls");
+			system("pause");
 			break;
 
 		case Settings:
 			break;
 
 		case Highscores:
+			system("cls");
 			this->scores.printScores();
+			system("pause");
 			break;
 
 		case Exit:
@@ -56,7 +61,7 @@ void GameWrapper::playGame() {
 
 	sf::RenderWindow window(sf::VideoMode(800,1000), "Clickie Boi");
 
-	Grid g1;
+	Grid grid;
 
 	while (window.isOpen())
 	{
@@ -69,7 +74,7 @@ void GameWrapper::playGame() {
 
 		window.clear();
 
-		g1.drawGrid(window);
+		grid.drawGrid(window);
 
 		window.display();
 	}

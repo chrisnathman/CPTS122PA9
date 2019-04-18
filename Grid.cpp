@@ -1,6 +1,6 @@
 #include "Grid.h"
 
-Grid::Grid() {
+Grid::Grid(int colors) {
 	int k = 0;
 
 	sf::Color samples[6] = { sf::Color::White, sf::Color::Yellow, sf::Color::Red, sf::Color::Blue, sf::Color::Green, sf::Color::Magenta };
@@ -11,15 +11,10 @@ Grid::Grid() {
 		// add 10 circles
 		for (int i = 0; i < 10; i++)
 		{
-			k = ((rand() % 5) + 1);
-
-			sf::CircleShape shape(50);
-			// draw a circle every 100 pixels
-			shape.setPosition(i * 100, 25 + 100 * j);
-			shape.setFillColor(samples[k]);
-
-			// copy shape to vector
-			myvector.push_back(shape);
+			k = rand() % colors;
+			this->arr[j][i].setRadius(50);
+			this->arr[j][i].setPosition(i * 100, 25 + 100 * j);
+			this->arr[j][i].setFillColor(samples[k]);
 		}
 
 		j++;
@@ -31,11 +26,11 @@ Grid::~Grid() {
 }
 
 void Grid::drawGrid(sf::RenderWindow & window) {
-		//draw shapes
-		// iterate through vector
-		for (std::vector<sf::CircleShape>::iterator it = myvector.begin(); it != myvector.end(); ++it)
-		{
-			// draw all circles
-			window.draw(*it);
+	for (int i = 0; i < 5; i++) {
+		for (int j = 0; j < 10; j++) {
+			if (!this->arr[i][j].isDestroyed()) {
+				window.draw(this->arr[i][j]);
+			}
 		}
+	}
 }
