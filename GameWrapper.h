@@ -21,6 +21,7 @@ public:
 	void runApp();
 	void displayMenu();
 	void playGame();
+	void printInstructions();
 	int getMenuOption(int min, int max);
 };
 
