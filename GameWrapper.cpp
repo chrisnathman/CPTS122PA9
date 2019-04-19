@@ -49,6 +49,7 @@ void GameWrapper::runApp() {
 	}
 }
 
+// displays the main menu
 void GameWrapper::displayMenu() {
 	std::cout << "Select an option:" << std::endl
 		<< "1. Play Game" << std::endl
@@ -61,59 +62,84 @@ void GameWrapper::displayMenu() {
 
 void GameWrapper::playGame() {
 
-	sf::RenderWindow window(sf::VideoMode(800,1000), "Clickie Boi");
+	// game window
+	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Clickie Boi");
 	window.setPosition(sf::Vector2i(560, 0));
 
+	// moving part of the cannon
 	Cannon shootyBoi(*(new sf::Vector2f(-50, -150)), sf::Color::Cyan,
 		*(new sf::Vector2f(window.getSize().x/2, window.getSize().y)));
 	shootyBoi.setOrigin(-25, 0);
 
+	// decorative cannon base
 	sf::CircleShape cannonStand(80.f);
 	cannonStand.setFillColor(sf::Color::Cyan);
 	cannonStand.setPosition(sf::Vector2f(window.getSize().x / 2 - cannonStand.getRadius(), window.getSize().y-cannonStand.getRadius()));
 	
+	// ball that gets fired
+	Ball ammo(25.f);
+	this->resetAmmo(ammo, window.getSize().x, window.getSize().y);
+	bool ammoFired = true; // flag for if game should look for user input
 
+	// grid of all balls in play except ammo
 	Grid grid(difficulty);
-
-	double rotation1 = .0, rotation2 = .0;
 
 	while (window.isOpen())
 	{
 		sf::Event event;
+
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
 
+		// waiting for user to fire
+		if (!ammoFired) {
+			while (window.pollEvent(event)) {
+				if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
+					// fire
+				}
+			}
+		}
+		// ammo hit the grid so need to reset
+		else if(ammo.isDestroyed()){
+			this->resetAmmo(ammo, window.getSize().x, window.getSize().y);
+			ammoFired = false;
+		}
+		// check position of ammo for collisions
+		else {
+
+		}
+
 		window.clear();
 
-		if (rotation1 <= 75)
-		{
-			rotation1 = rotation1 + .06;
-			shootyBoi.rotate(.06);
-			if (rotation1 >= 75)
-			{
-				rotation2 = 75;
-			}
-		}
-		else if (rotation2 >= -75)
-		{
-			rotation2 = rotation2 - .06;
-			shootyBoi.rotate(-.06);
-			if (rotation2 <= -75)
-			{
-				rotation1 = -75;
-			}
-		}
+		shootyBoi.rotateCannon();
 
 		grid.drawGrid(window);
 		window.draw(cannonStand);
 		window.draw(shootyBoi);
+		window.draw(ammo);
 		window.display();
 	}
 }
 
+// resets ammo so that it is ready to be fired again
+void GameWrapper::resetAmmo(Ball & ammo, int windowXSize, int windowYSize){
+
+	ammo.setPosition(windowXSize/2 - ammo.getRadius(), windowYSize - ammo.getRadius());
+
+	int nextAmmoColor = rand() % difficulty;
+	ammo.setFillColor(Grid::samples[nextAmmoColor]);
+
+	ammo.unDestroy();
+}
+
+void GameWrapper::fireAmmo(Ball & ammo, Cannon & kanone) {
+	
+}
+
+// prints out the game instructions
 void GameWrapper::printInstructions() {
 	std::cout << "Bubble Shooter" << std::endl
 		<< "Your goal is to clear all the bubble from the screen, scoring as many points as possible." << std::endl
@@ -126,6 +152,7 @@ void GameWrapper::printInstructions() {
 
 }
 
+// changes possible colors and score multiplier based on selected difficulty
 void GameWrapper::setDifficulty() {
 	std::cout << "Select a difficulty:" << std::endl
 		<< "1. Easy   (4 colors, 1x score)" << std::endl
@@ -135,6 +162,7 @@ void GameWrapper::setDifficulty() {
 	this->scorePerBall = this->difficulty - 2;
 }
 
+// gets an integer from the user between the given values, usually used for selecting menu options
 int GameWrapper::getMenuOption(int min, int max) {
 	int choice = 0;
 	std::cout << "enter your choice:" << std::endl;

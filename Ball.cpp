@@ -1,7 +1,7 @@
 #include "Ball.h"
 
 
-Ball::Ball() : sf::CircleShape(50){
+Ball::Ball(float radius) : sf::CircleShape(radius){
 	this->destroyed = false;
 }
 Ball::Ball(float radius, const sf::Color &c, float posX, float posY) : sf::CircleShape(radius)
@@ -17,4 +17,8 @@ bool Ball::isDestroyed() {
 
 void Ball::destroy() {
 	this->destroyed = true;
+}
+
+void Ball::unDestroy() {
+	this->destroyed = false;
 }

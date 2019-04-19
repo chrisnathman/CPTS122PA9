@@ -1,33 +1,41 @@
 #include "Grid.h"
 
+sf::Color Grid::samples[]= { sf::Color::White, sf::Color::Yellow, sf::Color::Red, sf::Color::Blue,
+										  sf::Color::Green, sf::Color::Magenta };
+
 Grid::Grid(int colors) {
+
 	int k = 0;
 
-	sf::Color samples[6] = { sf::Color::White, sf::Color::Yellow, sf::Color::Red, sf::Color::Blue, sf::Color::Green, sf::Color::Magenta };
+	this->rows = ((WINDOW_HEIGHT - (4 * WINDOW_BORDER)) / 100);
+	this->columns = (WINDOW_WIDTH - (2 * WINDOW_BORDER)) / 50;
 
 	int j = 0;
-	while (j < 5) // row count
+	while (j < this->rows) // row count
 	{
+		std::vector<Ball> newVector;
 		// add 10 circles
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < this->columns; i++)
 		{
-			k = rand() % colors;
-			this->arr[j][i].setRadius(50);
-			this->arr[j][i].setPosition(i * 100, 25 + 100 * j);
-			this->arr[j][i].setFillColor(samples[k]);
-		}
 
+			k = rand() % colors;
+
+			Ball newBall(25, Grid::samples[k], (i * 50) + (WINDOW_BORDER), (j * 50) + (3 * WINDOW_BORDER));
+
+			newVector.push_back(newBall);
+		}
+		this->arr.push_back(newVector);
 		j++;
 
 	}
 }
 Grid::~Grid() {
-
+	
 }
 
 void Grid::drawGrid(sf::RenderWindow & window) {
-	for (int i = 0; i < 5; i++) {
-		for (int j = 0; j < 10; j++) {
+	for (int i = 0; i < this->rows; i++) {
+		for (int j = 0; j < this->columns; j++) {
 			if (!this->arr[i][j].isDestroyed()) {
 				window.draw(this->arr[i][j]);
 			}

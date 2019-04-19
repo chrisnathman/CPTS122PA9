@@ -14,6 +14,9 @@ private:
 	int difficulty; //4 easy 5 mid 6 hard | score modifers *1, *1.5 *2
 	int scorePerBall; 
 
+	void resetAmmo(Ball & ammo, int windowXSize, int windowYSize);
+	void fireAmmo(Ball & ammo, Cannon & kanone);
+
 public:
 	GameWrapper();
 	~GameWrapper();

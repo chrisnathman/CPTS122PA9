@@ -3,15 +3,25 @@
 #pragma once
 #include "Ball.h"
 #include <SFML/Window.hpp>
+#include <vector>
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 800
+#define WINDOW_BORDER 25
 
 class Grid {
 
+	
+
 private:
-	Ball arr[5][10];
+	std::vector<std::vector<Ball>> arr;
+	int rows;
+	int columns;
 
 public:
 	Grid(int colors = 4);
 	~Grid();
+
+	static sf::Color samples[6];
 
 	void drawGrid(sf::RenderWindow & window);
 };
