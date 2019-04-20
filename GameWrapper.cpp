@@ -78,6 +78,7 @@ void GameWrapper::playGame() {
 	
 	// ball that gets fired
 	Ball ammo(25.f);
+	ammo.setOrigin(ammo.getRadius(), ammo.getRadius());
 	this->resetAmmo(ammo, window.getSize().x, window.getSize().y);
 	bool ammoFired = true; // flag for if game should look for user input
 
@@ -98,7 +99,7 @@ void GameWrapper::playGame() {
 		if (!ammoFired) {
 			while (window.pollEvent(event)) {
 				if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-					// fire
+					this->fireAmmo(ammo, shootyBoi);
 				}
 			}
 		}
@@ -109,7 +110,8 @@ void GameWrapper::playGame() {
 		}
 		// check position of ammo for collisions
 		else {
-
+			ammo.move(ammo.getXVel(), ammo.getYVel());
+			
 		}
 
 		window.clear();
@@ -127,7 +129,7 @@ void GameWrapper::playGame() {
 // resets ammo so that it is ready to be fired again
 void GameWrapper::resetAmmo(Ball & ammo, int windowXSize, int windowYSize){
 
-	ammo.setPosition(windowXSize/2 - ammo.getRadius(), windowYSize - ammo.getRadius());
+	ammo.setPosition(windowXSize/2, windowYSize);
 
 	int nextAmmoColor = rand() % difficulty;
 	ammo.setFillColor(Grid::samples[nextAmmoColor]);
@@ -135,6 +137,7 @@ void GameWrapper::resetAmmo(Ball & ammo, int windowXSize, int windowYSize){
 	ammo.unDestroy();
 }
 
+// fires the ammo based on cannon angle
 void GameWrapper::fireAmmo(Ball & ammo, Cannon & kanone) {
 	
 }

@@ -20,8 +20,8 @@ Grid::Grid(int colors) {
 
 			k = rand() % colors;
 
-			Ball newBall(25, Grid::samples[k], (i * 50) + (WINDOW_BORDER), (j * 50) + (3 * WINDOW_BORDER));
-
+			Ball newBall(25, Grid::samples[k], (i * 50) + (WINDOW_BORDER) + 25, (j * 50) + (3 * WINDOW_BORDER) + 25);
+			newBall.setOrigin(newBall.getRadius(), newBall.getRadius());
 			newVector.push_back(newBall);
 		}
 		this->arr.push_back(newVector);
