@@ -80,7 +80,7 @@ void GameWrapper::playGame() {
 	Ball ammo(25.f);
 	ammo.setOrigin(ammo.getRadius(), ammo.getRadius());
 	this->resetAmmo(ammo, window.getSize().x, window.getSize().y);
-	bool ammoFired = true; // flag for if game should look for user input
+	bool ammoFired = false; // flag for if game should look for user input
 
 	// grid of all balls in play except ammo
 	Grid grid(difficulty);
@@ -95,12 +95,12 @@ void GameWrapper::playGame() {
 				window.close();
 		}
 
+		sf::Event event2;
 		// waiting for user to fire
 		if (!ammoFired) {
-			while (window.pollEvent(event)) {
-				if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space) {
-					this->fireAmmo(ammo, shootyBoi);
-				}
+			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+				this->fireAmmo(ammo, shootyBoi);
+				ammoFired = true;
 			}
 		}
 		// ammo hit the grid so need to reset
@@ -110,8 +110,7 @@ void GameWrapper::playGame() {
 		}
 		// check position of ammo for collisions
 		else {
-			ammo.move(ammo.getXVel(), ammo.getYVel());
-			
+			grid.collideAmmo(ammo, window);
 		}
 
 		window.clear();
@@ -139,7 +138,10 @@ void GameWrapper::resetAmmo(Ball & ammo, int windowXSize, int windowYSize){
 
 // fires the ammo based on cannon angle
 void GameWrapper::fireAmmo(Ball & ammo, Cannon & kanone) {
-	
+	float rotation = 3.14159265358979/180 * kanone.getRotation(); //convert rotation to radians
+	float xVel = sin(rotation);
+	float yVel = -cos(rotation);
+	ammo.setVelocity(xVel, yVel);
 }
 
 // prints out the game instructions

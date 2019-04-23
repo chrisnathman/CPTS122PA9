@@ -17,6 +17,8 @@ private:
 	int rows;
 	int columns;
 
+	void destroyCluster(int row, int column, sf::Color & targetColor);
+
 public:
 	Grid(int colors = 4);
 	~Grid();
@@ -24,6 +26,8 @@ public:
 	static sf::Color samples[6];
 
 	void drawGrid(sf::RenderWindow & window);
+	void collideAmmo(Ball & ammo, sf::RenderWindow & window);
+	bool destroyCluster(int row, int column);
 };
 
 #endif
