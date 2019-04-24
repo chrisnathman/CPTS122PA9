@@ -14,12 +14,10 @@ void GameWrapper::runApp() {
 	this->difficulty = 4;
 	this->scorePerBall = 2;
 
-	//bool exit = false;
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Clickie Boi");
 	window.setPosition(sf::Vector2i(560, 0));
 
 	//Buttons 
-
 	sf::Texture exitButton;
 	sf::Sprite exitButtonImage;
 	if (!exitButton.loadFromFile("Exit.png"))
@@ -91,142 +89,142 @@ void GameWrapper::runApp() {
 
 	backgroundpic.setPosition(0, 0);
 
-	while (window.isOpen())
-	{
-		sf::Event Event;
-		while (window.pollEvent(Event))
+	bool exit = false;
+
+	while (!exit) {
+
+		while (window.isOpen())
 		{
-
-			switch (Event.type)
+			sf::Event Event;
+			while (window.pollEvent(Event))
 			{
-			case sf::Event::Closed:
-				window.close();
-				break;
-			case sf::Event::MouseMoved:
-			{
-				sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-				sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
 
-				//play
-				if (playButtonImage.getGlobalBounds().contains(mousePosF))
+				switch (Event.type)
 				{
-					playButtonImage.setColor(sf::Color(20, 20, 250));
-				}
-				else
-				{
-					playButtonImage.setColor(sf::Color(255, 255, 255));
-				}
-
-				//instructions
-				if (instructionsButtonImage.getGlobalBounds().contains(mousePosF))
-				{
-					instructionsButtonImage.setColor(sf::Color(20, 20, 250));
-				}
-				else
-				{
-					instructionsButtonImage.setColor(sf::Color(255, 255, 255));
-				}
-
-				//difficulty
-				if (difficultyButtonImage.getGlobalBounds().contains(mousePosF))
-				{
-					difficultyButtonImage.setColor(sf::Color(20, 20, 250));
-				}
-				else
-				{
-					difficultyButtonImage.setColor(sf::Color(255, 255, 255));
-				}
-
-
-				//scores
-				if (scoresButtonImage.getGlobalBounds().contains(mousePosF))
-				{
-					scoresButtonImage.setColor(sf::Color(20, 20, 250));
-				}
-				else
-				{
-					scoresButtonImage.setColor(sf::Color(255, 255, 255));
-				}
-
-
-				//exit
-				if (exitButtonImage.getGlobalBounds().contains(mousePosF))
-				{
-					exitButtonImage.setColor(sf::Color(250, 20, 20));
-				}
-				else
-				{
-					exitButtonImage.setColor(sf::Color(255, 255, 255));
-				}
-			}
-			break;
-			case sf::Event::MouseButtonPressed:
-			{
-				sf::Vector2i mousePos = sf::Mouse::getPosition(window);
-				sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-
-
-				if (playButtonImage.getGlobalBounds().contains(mousePosF))
-				{
-					std::cout << "Playing Game" << std::endl;
-					this->playGame(window);
-					break;
-				}
-
-				if (instructionsButtonImage.getGlobalBounds().contains(mousePosF))
-				{
-					std::cout << "Showing Instructions" << std::endl;
-					system("cls");
-					this->printInstructions();
-					system("pause");
-					break;
-				}
-
-				if (difficultyButtonImage.getGlobalBounds().contains(mousePosF))
-				{
-					std::cout << "Difficulty" << std::endl;
-					system("cls");
-					this->setDifficulty();
-					break;
-				}
-
-				if (scoresButtonImage.getGlobalBounds().contains(mousePosF))
-				{
-					std::cout << "Scores" << std::endl;
-					system("cls");
-					this->scores.printScores();
-					system("pause");
-					break;
-				}
-
-
-				if (exitButtonImage.getGlobalBounds().contains(mousePosF))
-				{
-					std::cout << "Exited Game" << std::endl;
+				case sf::Event::Closed:
 					window.close();
 					break;
+				case sf::Event::MouseMoved:
+				{
+					sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+					sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+
+					//play
+					if (playButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						playButtonImage.setColor(sf::Color(20, 20, 250));
+					}
+					else
+					{
+						playButtonImage.setColor(sf::Color(255, 255, 255));
+					}
+
+					//instructions
+					if (instructionsButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						instructionsButtonImage.setColor(sf::Color(20, 20, 250));
+					}
+					else
+					{
+						instructionsButtonImage.setColor(sf::Color(255, 255, 255));
+					}
+
+					//difficulty
+					if (difficultyButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						difficultyButtonImage.setColor(sf::Color(20, 20, 250));
+					}
+					else
+					{
+						difficultyButtonImage.setColor(sf::Color(255, 255, 255));
+					}
+
+
+					//scores
+					if (scoresButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						scoresButtonImage.setColor(sf::Color(20, 20, 250));
+					}
+					else
+					{
+						scoresButtonImage.setColor(sf::Color(255, 255, 255));
+					}
+
+
+					//exit
+					if (exitButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						exitButtonImage.setColor(sf::Color(250, 20, 20));
+					}
+					else
+					{
+						exitButtonImage.setColor(sf::Color(255, 255, 255));
+					}
+				}
+				break;
+				case sf::Event::MouseButtonPressed:
+				{
+					sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+					sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+
+
+					if (playButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						std::cout << "Playing Game" << std::endl;
+						this->playGame(window);
+						break;
+					}
+
+					if (instructionsButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						system("cls");
+						this->printInstructions();
+						system("pause");
+						break;
+					}
+
+					if (difficultyButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						system("cls");
+						this->setDifficulty();
+						break;
+					}
+
+					if (scoresButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						system("cls");
+						this->scores.printScores();
+						system("pause");
+						break;
+					}
+
+					if (exitButtonImage.getGlobalBounds().contains(mousePosF))
+					{
+						std::cout << "Exited Game" << std::endl;
+						exit = true;
+						window.close();
+						break;
+					}
+
+				}
+				break;
 				}
 
+			}
 
-			}
-			break;
-			}
+			window.clear();
+
+			window.draw(backgroundpic);
+			window.draw(exitButtonImage);
+			window.draw(playButtonImage);
+			window.draw(scoresButtonImage);
+			window.draw(difficultyButtonImage);
+			window.draw(instructionsButtonImage);
+
+
+			window.display();
 
 		}
-
-
-		window.clear();
-
-		window.draw(backgroundpic);
-		window.draw(exitButtonImage);
-		window.draw(playButtonImage);
-		window.draw(scoresButtonImage);
-		window.draw(difficultyButtonImage);
-		window.draw(instructionsButtonImage);
-
-
-		window.display();
-
 	}
 
 	this->scores.exportScore();
@@ -313,14 +311,15 @@ void GameWrapper::playGame(sf::RenderWindow & window) {
 	remainingShots.setFillColor(sf::Color::Yellow);
 	remainingShots.setPosition(sf::Vector2f(500, 10));
 
-	while (window.isOpen() && shotsRemaining > 0)
+	bool returnToMenu = false;
+	while (!returnToMenu && shotsRemaining > 0)
 	{
 		sf::Event event;
 
 		while (window.pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				window.close();
+				returnToMenu;
 		}
 
 		sf::Event event2;
@@ -328,7 +327,6 @@ void GameWrapper::playGame(sf::RenderWindow & window) {
 		if (!ammoFired) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 				this->fireAmmo(ammo, shootyBoi);
-				shotsRemaining--;
 				ammoFired = true;
 				sFire.play();
 			}
@@ -336,6 +334,7 @@ void GameWrapper::playGame(sf::RenderWindow & window) {
 		// ammo hit the grid so need to reset
 		else if(ammo.isDestroyed()){
 			this->resetAmmo(ammo, window.getSize().x, window.getSize().y);
+			shotsRemaining--; // shots is decremented here so loop does not exit before final shot completes
 			ammoFired = false;
 		}
 		// check position of ammo for collisions and update score
@@ -363,7 +362,7 @@ void GameWrapper::playGame(sf::RenderWindow & window) {
 		window.display();
 	} 
 	
-	if (window.isOpen()) {
+	if (!returnToMenu) {
 		sf::Texture t1,t2;
 		t1.loadFromFile("lose.jpg");
 		sf::Sprite s1,s2;
@@ -379,13 +378,31 @@ void GameWrapper::playGame(sf::RenderWindow & window) {
 		s1.setPosition(400.f, 500.f);
 		s1.setOrigin(400.f / 0.4f, 500.f / 0.4f);
 
-		while (window.isOpen()) {
+		sf::Text loser;
+		// set the string to display
+		loser.setFont(font);
+		loser.setString(" GAME OVER LOSER ");
+		loser.setCharacterSize(55);
+		loser.setPosition(sf::Vector2f(WINDOW_WIDTH / 2 - 300, WINDOW_HEIGHT / 2 - 10));
+		
+		while (!returnToMenu) {
 			sf::Event event;
 
 			while (window.pollEvent(event))
 			{
 				if (event.type == sf::Event::Closed)
-					window.close();
+					returnToMenu = true;
+			}
+
+			time_t current_time = time(NULL);
+
+			if (current_time % 2 == 0)
+			{
+				loser.setFillColor(sf::Color::Red);
+			}
+			else
+			{
+				loser.setFillColor(sf::Color::White);
 			}
 
 			s1.scale(1.0001f, 1.0001f);
@@ -393,6 +410,7 @@ void GameWrapper::playGame(sf::RenderWindow & window) {
 			window.clear();
 			s1.rotate(.1f);
 			window.draw(s1);
+			window.draw(loser);
 			window.display();
 		}
 	}
@@ -435,7 +453,6 @@ void GameWrapper::printInstructions() {
 		<< "The more bubbles you blow up with one shot, the more points you can gain." << std::endl
 		<< "If your shot fails to detonate any bubbles, you are given a strike.You lose the game when you reach your fifth strike." << std::endl
 		<< "Your high score will automatically be saved, and will be displayed at the end of every game." << std::endl;
-
 }
 
 // changes possible colors and score multiplier based on selected difficulty
@@ -445,7 +462,7 @@ void GameWrapper::setDifficulty() {
 		<< "2. Medium (5 colors, 1.5x score)" << std::endl
 		<< "3. Hard   (6 colors, 2x score)" << std::endl;
 	this->difficulty = getMenuOption(1, 3) + 3; // add 3 to get number of colors
-	this->scorePerBall = this->difficulty - 2;
+	this->scorePerBall = this->difficulty - 2; // 2 for easy, 3 for medium, 4 for hard
 }
 
 // gets an integer from the user between the given values, usually used for selecting menu options
