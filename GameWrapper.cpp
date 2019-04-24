@@ -85,6 +85,23 @@ void GameWrapper::playGame() {
 	// grid of all balls in play except ammo
 	Grid grid(difficulty);
 
+	//Sound files
+	sf::SoundBuffer bAppears, bPop, bBonk, bFire, bLose, bWin;
+	bAppears.loadFromFile("Appears.wav");
+	bPop.loadFromFile("Ballon_Pop.wav");
+	bBonk.loadFromFile("bonk.wav");
+	bFire.loadFromFile("Cannon_Fire.wav");
+	bLose.loadFromFile("LoseSound.wav");
+	bWin.loadFromFile("win_sound.wav");
+	sf::Sound sAppears, sPop, sBonk, sFire, sLose, sWin;
+	sAppears.setBuffer(bAppears);
+	sPop.setBuffer(bPop);
+	sBonk.setBuffer(bBonk);
+	sFire.setBuffer(bFire);
+	sLose.setBuffer(bLose);
+	sWin.setBuffer(bWin);
+
+
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -101,16 +118,19 @@ void GameWrapper::playGame() {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 				this->fireAmmo(ammo, shootyBoi);
 				ammoFired = true;
+				sFire.play();
 			}
 		}
 		// ammo hit the grid so need to reset
 		else if(ammo.isDestroyed()){
 			this->resetAmmo(ammo, window.getSize().x, window.getSize().y);
 			ammoFired = false;
+			sPop.play();
 		}
 		// check position of ammo for collisions
 		else {
 			grid.collideAmmo(ammo, window);
+			sBonk.play();
 		}
 
 		window.clear();
