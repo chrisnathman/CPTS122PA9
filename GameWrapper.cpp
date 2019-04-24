@@ -1,6 +1,9 @@
 #include "GameWrapper.h"
 
 GameWrapper::GameWrapper() {
+	if (false) {
+		int wellHelloThere;
+	}
 }
 GameWrapper::~GameWrapper() {
 }
@@ -11,60 +14,251 @@ void GameWrapper::runApp() {
 	this->difficulty = 4;
 	this->scorePerBall = 2;
 
-	bool exit = false;
-	while (!exit) {
-
-		system("cls");
-
-		this->displayMenu();
-
-		switch (this->getMenuOption(1, 5)) {
-
-		case Play:
-			this->playGame();
-			break;
-
-		case Instructions:
-			system("cls");
-			this->printInstructions();
-			system("pause");
-			break;
-
-		case Difficulty:
-			this->setDifficulty();
-			break;
-
-		case Highscores:
-			system("cls");
-			this->scores.printScores();
-			system("pause");
-			break;
-
-		case Exit:
-			exit = true;
-			this->scores.exportScore();
-			break;
-
-		}
-	}
-}
-
-// displays the main menu
-void GameWrapper::displayMenu() {
-	std::cout << "Select an option:" << std::endl
-		<< "1. Play Game" << std::endl
-		<< "2. Instructions" << std::endl
-		<< "3. Set Difficulty" << std::endl
-		<< "4. View Highscores" << std::endl
-		<< "5. Exit" << std::endl;
-	
-}
-
-void GameWrapper::playGame() {
-
-	// game window
+	//bool exit = false;
 	sf::RenderWindow window(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Clickie Boi");
 	window.setPosition(sf::Vector2i(560, 0));
+
+	//Buttons 
+
+	sf::Texture exitButton;
+	sf::Sprite exitButtonImage;
+	if (!exitButton.loadFromFile("Exit.png"))
+		std::cout << "Can't find the image" << std::endl;
+	exitButtonImage.setPosition(((WINDOW_WIDTH / 2) - (exitButton.getSize().x / 2)), (WINDOW_HEIGHT / 7) * 5);
+
+	float exitButtonWidth = exitButton.getSize().x;
+	float exitButtonHeight = exitButton.getSize().y;
+
+	exitButtonImage.setTexture(exitButton);
+
+	sf::Texture playButton;
+	sf::Sprite playButtonImage;
+	if (!playButton.loadFromFile("Play.png"))
+		std::cout << "Can't find the image" << std::endl;
+	playButtonImage.setPosition(((WINDOW_WIDTH / 2) - (playButton.getSize().x / 2)), (WINDOW_HEIGHT / 7));
+
+	float playButtonWidth = playButton.getSize().x;
+	float playButtonHeight = playButton.getSize().y;
+
+	playButtonImage.setTexture(playButton);
+
+
+	sf::Texture instructionsButton;
+	sf::Sprite instructionsButtonImage;
+	if (!instructionsButton.loadFromFile("Instructions.png"))
+		std::cout << "Can't find the image" << std::endl;
+	instructionsButtonImage.setPosition(((WINDOW_WIDTH / 2) - (instructionsButton.getSize().x / 2)), (WINDOW_HEIGHT / 7) * 2);
+
+	float InstructionsButtonWidth = instructionsButton.getSize().x;
+	float InstructionsButtonHeight = instructionsButton.getSize().y;
+
+	instructionsButtonImage.setTexture(instructionsButton);
+
+	sf::Texture difficultyButton;
+	sf::Sprite difficultyButtonImage;
+	if (!difficultyButton.loadFromFile("Difficulty.png"))
+		std::cout << "Can't find the image" << std::endl;
+	difficultyButtonImage.setPosition(((WINDOW_WIDTH / 2) - (difficultyButton.getSize().x / 2)), (WINDOW_HEIGHT / 7) * 3);
+
+	float difficultyButtonWidth = difficultyButton.getSize().x;
+	float difficultyButtonHeight = difficultyButton.getSize().y;
+
+	difficultyButtonImage.setTexture(difficultyButton);
+
+	sf::Texture scoresButton;
+	sf::Sprite scoresButtonImage;
+	if (!scoresButton.loadFromFile("Scores.png"))
+		std::cout << "Can't find the image" << std::endl;
+	scoresButtonImage.setPosition(((WINDOW_WIDTH / 2) - (scoresButton.getSize().x / 2)), (WINDOW_HEIGHT / 7) * 4);
+
+	float scoresButtonWidth = scoresButton.getSize().x;
+	float scoresButtonHeight = scoresButton.getSize().y;
+
+	scoresButtonImage.setTexture(scoresButton);
+
+
+
+	sf::Texture background;
+	background.loadFromFile("background.png");
+	sf::Sprite backgroundpic;
+	sf::Vector2u size = background.getSize();
+	backgroundpic.setTexture(background);
+
+	float ScaleX = (float)((float)WINDOW_WIDTH / (float)size.x);
+	float ScaleY = (float)((float)WINDOW_HEIGHT / (float)size.y);     //Calculate scale.
+
+	backgroundpic.setScale(ScaleX, ScaleY);
+
+	backgroundpic.setPosition(0, 0);
+
+	while (window.isOpen())
+	{
+		sf::Event Event;
+		while (window.pollEvent(Event))
+		{
+
+			switch (Event.type)
+			{
+			case sf::Event::Closed:
+				window.close();
+				break;
+			case sf::Event::MouseMoved:
+			{
+				sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+				sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+
+				//play
+				if (playButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					playButtonImage.setColor(sf::Color(20, 20, 250));
+				}
+				else
+				{
+					playButtonImage.setColor(sf::Color(255, 255, 255));
+				}
+
+				//instructions
+				if (instructionsButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					instructionsButtonImage.setColor(sf::Color(20, 20, 250));
+				}
+				else
+				{
+					instructionsButtonImage.setColor(sf::Color(255, 255, 255));
+				}
+
+				//difficulty
+				if (difficultyButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					difficultyButtonImage.setColor(sf::Color(20, 20, 250));
+				}
+				else
+				{
+					difficultyButtonImage.setColor(sf::Color(255, 255, 255));
+				}
+
+
+				//scores
+				if (scoresButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					scoresButtonImage.setColor(sf::Color(20, 20, 250));
+				}
+				else
+				{
+					scoresButtonImage.setColor(sf::Color(255, 255, 255));
+				}
+
+
+				//exit
+				if (exitButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					exitButtonImage.setColor(sf::Color(250, 20, 20));
+				}
+				else
+				{
+					exitButtonImage.setColor(sf::Color(255, 255, 255));
+				}
+			}
+			break;
+			case sf::Event::MouseButtonPressed:
+			{
+				sf::Vector2i mousePos = sf::Mouse::getPosition(window);
+				sf::Vector2f mousePosF(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+
+
+				if (playButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					std::cout << "Playing Game" << std::endl;
+					this->playGame(window);
+					break;
+				}
+
+				if (instructionsButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					std::cout << "Showing Instructions" << std::endl;
+					system("cls");
+					this->printInstructions();
+					system("pause");
+					break;
+				}
+
+				if (difficultyButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					std::cout << "Difficulty" << std::endl;
+					system("cls");
+					this->setDifficulty();
+					break;
+				}
+
+				if (scoresButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					std::cout << "Scores" << std::endl;
+					system("cls");
+					this->scores.printScores();
+					system("pause");
+					break;
+				}
+
+
+				if (exitButtonImage.getGlobalBounds().contains(mousePosF))
+				{
+					std::cout << "Exited Game" << std::endl;
+					window.close();
+					break;
+				}
+
+
+			}
+			break;
+			}
+
+		}
+
+
+		window.clear();
+
+		window.draw(backgroundpic);
+		window.draw(exitButtonImage);
+		window.draw(playButtonImage);
+		window.draw(scoresButtonImage);
+		window.draw(difficultyButtonImage);
+		window.draw(instructionsButtonImage);
+
+
+		window.display();
+
+	}
+
+	this->scores.exportScore();
+
+}
+
+void GameWrapper::playGame(sf::RenderWindow & window) {
+
+	int currentScore = 0;
+	int shotsRemaining = 30;
+
+	// game window
+
+	sf::RectangleShape borderLeft;
+	borderLeft.setSize(sf::Vector2f(WINDOW_BORDER, WINDOW_HEIGHT - (4 * WINDOW_BORDER)));
+	borderLeft.setFillColor(sf::Color(0, 0, 127, 225));
+	borderLeft.setPosition(0, (WINDOW_BORDER * 3));
+
+	sf::RectangleShape borderRight;
+	borderRight.setSize(sf::Vector2f(WINDOW_BORDER, WINDOW_HEIGHT - (4 * WINDOW_BORDER)));
+	borderRight.setFillColor(sf::Color(0, 0, 127, 225));
+	borderRight.setPosition((WINDOW_WIDTH - WINDOW_BORDER), (WINDOW_BORDER * 3));
+
+	sf::RectangleShape borderTop;
+	borderTop.setSize(sf::Vector2f(WINDOW_WIDTH, 3 * WINDOW_BORDER));
+	borderTop.setFillColor(sf::Color(0, 0, 127, 225));
+	borderTop.setPosition(0, 0);
+
+	sf::RectangleShape borderBottom;
+	borderBottom.setSize(sf::Vector2f(WINDOW_WIDTH, WINDOW_BORDER));
+	borderBottom.setFillColor(sf::Color(0, 0, 127, 225));
+	borderBottom.setPosition(0, (WINDOW_HEIGHT - WINDOW_BORDER));
 
 	// moving part of the cannon
 	Cannon shootyBoi(*(new sf::Vector2f(-50, -150)), sf::Color::Cyan,
@@ -86,23 +280,40 @@ void GameWrapper::playGame() {
 	Grid grid(difficulty);
 
 	//Sound files
-	sf::SoundBuffer bAppears, bPop, bBonk, bFire, bLose, bWin;
+	sf::SoundBuffer bAppears, bFire, bLose, bWin;
 	bAppears.loadFromFile("Appears.wav");
-	bPop.loadFromFile("Ballon_Pop.wav");
-	bBonk.loadFromFile("bonk.wav");
 	bFire.loadFromFile("Cannon_Fire.wav");
 	bLose.loadFromFile("LoseSound.wav");
 	bWin.loadFromFile("win_sound.wav");
-	sf::Sound sAppears, sPop, sBonk, sFire, sLose, sWin;
+	sf::Sound sAppears, sFire, sLose, sWin;
 	sAppears.setBuffer(bAppears);
-	sPop.setBuffer(bPop);
-	sBonk.setBuffer(bBonk);
 	sFire.setBuffer(bFire);
 	sLose.setBuffer(bLose);
 	sWin.setBuffer(bWin);
 
+	sf::Font font;
+	if (!font.loadFromFile("ariblk.ttf"))
+	{
+		std::cout << "Error Loading Font from file" << std::endl;
+	}
 
-	while (window.isOpen())
+	sf::Text currScore, remainingShots;
+
+	// set the string to display
+	currScore.setFont(font);
+	currScore.setString("Current Score: " + std::to_string(currentScore));
+	currScore.setCharacterSize(25);
+	currScore.setFillColor(sf::Color::Yellow);
+	//currScore.setStyle(sf::Text::Bold);
+	currScore.setPosition(sf::Vector2f(10, 10));
+
+	remainingShots.setFont(font);
+	remainingShots.setString("Shots Remaining: " + std::to_string(shotsRemaining));
+	remainingShots.setCharacterSize(25);
+	remainingShots.setFillColor(sf::Color::Yellow);
+	remainingShots.setPosition(sf::Vector2f(500, 10));
+
+	while (window.isOpen() && shotsRemaining > 0)
 	{
 		sf::Event event;
 
@@ -117,6 +328,7 @@ void GameWrapper::playGame() {
 		if (!ammoFired) {
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 				this->fireAmmo(ammo, shootyBoi);
+				shotsRemaining--;
 				ammoFired = true;
 				sFire.play();
 			}
@@ -125,24 +337,73 @@ void GameWrapper::playGame() {
 		else if(ammo.isDestroyed()){
 			this->resetAmmo(ammo, window.getSize().x, window.getSize().y);
 			ammoFired = false;
-			sPop.play();
 		}
-		// check position of ammo for collisions
+		// check position of ammo for collisions and update score
 		else {
 			grid.collideAmmo(ammo, window);
-			sBonk.play();
+			currentScore = this->scorePerBall * grid.getPoppedBalls();
 		}
 
 		window.clear();
 
 		shootyBoi.rotateCannon();
 
+		window.draw(borderTop);
+		window.draw(borderRight);
+		window.draw(borderBottom);
+		window.draw(borderLeft);
+		currScore.setString("Current Score: " + std::to_string(currentScore));
+		window.draw(currScore);
+		remainingShots.setString("Shots Remaining: " + std::to_string(shotsRemaining));
+		window.draw(remainingShots);
 		grid.drawGrid(window);
 		window.draw(cannonStand);
 		window.draw(shootyBoi);
 		window.draw(ammo);
 		window.display();
+	} 
+	
+	if (window.isOpen()) {
+		sf::Texture t1,t2;
+		t1.loadFromFile("lose.jpg");
+		sf::Sprite s1,s2;
+		s1.setTexture(t1);
+
+		sf::SoundBuffer bMusic;
+		bMusic.loadFromFile("win_sound.wav");
+		sf::Sound sMusic;
+		sMusic.setBuffer(bMusic);
+		sMusic.play();
+
+		s1.scale(0.4f, 0.4f);
+		s1.setPosition(400.f, 500.f);
+		s1.setOrigin(400.f / 0.4f, 500.f / 0.4f);
+
+		while (window.isOpen()) {
+			sf::Event event;
+
+			while (window.pollEvent(event))
+			{
+				if (event.type == sf::Event::Closed)
+					window.close();
+			}
+
+			s1.scale(1.0001f, 1.0001f);
+
+			window.clear();
+			s1.rotate(.1f);
+			window.draw(s1);
+			window.display();
+		}
 	}
+
+	system("cls");
+
+	this->scores.addScore(std::to_string(currentScore));
+
+	std::cout << "You scored " << currentScore << " points!" << std::endl;
+	system("pause");
+
 }
 
 // resets ammo so that it is ready to be fired again

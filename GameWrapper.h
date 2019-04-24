@@ -15,18 +15,17 @@ private:
 	int scorePerBall; 
 
 	void resetAmmo(Ball & ammo, int windowXSize, int windowYSize);
-	void fireAmmo(Ball & ammo, Cannon & kanone);
 
 public:
 	GameWrapper();
 	~GameWrapper();
 
 	void runApp();
-	void displayMenu();
-	void playGame();
+	void playGame(sf::RenderWindow & window);
 	void printInstructions();
 	void setDifficulty();
 	int getMenuOption(int min, int max);
+	void fireAmmo(Ball & ammo, Cannon & kanone);
 };
 
 #endif

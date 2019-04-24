@@ -5,11 +5,18 @@ sf::Color Grid::samples[] = { sf::Color::Yellow, sf::Color::Red, sf::Color::Blue
 
 Grid::Grid(int colors) {
 
-	int k = 0;
+	this->bBonk.loadFromFile("bonk.wav");
+	this->sBonk.setBuffer(this->bBonk);
+
+	this->bPop.loadFromFile("Balloon_Pop.wav");
+	this->sPop.setBuffer(bPop);
 
 	this->rows = ((WINDOW_HEIGHT - (4 * WINDOW_BORDER)) / 100);
 	this->columns = (WINDOW_WIDTH - (2 * WINDOW_BORDER)) / 50;
 
+	this->poppedBalls = 0;
+
+	int k = 0;
 
 	int j = 0;
 	while (j < 2 * this->rows) 
@@ -56,6 +63,7 @@ void Grid::collideAmmo(Ball & ammo, sf::RenderWindow & window) {
 	if ((ammo.getPosition().x < WINDOW_BORDER + ammo.getRadius() && ammo.getXVel() < 0) // ammo is touching the left side of the screen
 		|| ammo.getPosition().x > window.getSize().x - (WINDOW_BORDER + ammo.getRadius()) && ammo.getXVel() > 0) { // ammo is touching the right side 
 		ammo.setVelocity(-ammo.getXVel(), ammo.getYVel()); // switch sign of x velocity
+		this->sBonk.play();
 	}
 
 	for (int i = 0; i < 2 * this->rows; i++) {
@@ -102,10 +110,11 @@ void Grid::collideAmmo(Ball & ammo, sf::RenderWindow & window) {
 					}
 
 					ammo.setPosition(this->arr[closestRow][closestColumn].getPosition());
-					this->arr[closestRow][closestColumn] = ammo;
-					ammo.destroy();
-	
 					if (this->arr[i][j].getFillColor() == ammo.getFillColor() && this->destroyCluster(i, j)) {
+						ammo.destroy();
+					}
+					else {
+						this->arr[closestRow][closestColumn] = ammo;
 						ammo.destroy();
 					}
 				}
@@ -128,6 +137,7 @@ bool Grid::destroyCluster(int row, int column) {
 		|| (column < this->columns - 1 && !arr[row][column + 1].isDestroyed() && arr[row][column + 1].getFillColor() == targetColor)) {
 
 		this->destroyCluster(row, column, targetColor);
+		this->sPop.play();
 
 		return true;
 	}
@@ -149,4 +159,9 @@ void Grid::destroyCluster(int row, int column, sf::Color & targetColor) {
 	this->destroyCluster(row, column - 1, targetColor);
 	this->destroyCluster(row + 1, column, targetColor);
 	this->destroyCluster(row - 1, column, targetColor);
+	this->poppedBalls++;
+}
+
+int Grid::getPoppedBalls() {
+	return this->poppedBalls;
 }

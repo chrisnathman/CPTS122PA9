@@ -1,4 +1,4 @@
-#include <Sound.hpp>
+/*#include <Sound.hpp>
 #include <SoundBuffer.hpp>
 
 // Declare a new sound buffer
@@ -19,3 +19,4 @@ sound2.setBuffer(buffer);
 // Play it with a higher pitch -- the first sound remains unchanged
 sound2.setPitch(2);
 sound2.play();
+*/

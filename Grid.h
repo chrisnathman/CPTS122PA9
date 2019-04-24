@@ -3,6 +3,7 @@
 #pragma once
 #include "Ball.h"
 #include <SFML/Window.hpp>
+#include <SFML/Audio.hpp>
 #include <vector>
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
@@ -13,9 +14,14 @@ class Grid {
 	
 
 private:
+	sf::SoundBuffer bBonk, bPop;
+	sf::Sound sBonk, sPop;
+
 	std::vector<std::vector<Ball>> arr;
 	int rows;
 	int columns;
+
+	int poppedBalls;
 
 	void destroyCluster(int row, int column, sf::Color & targetColor);
 
@@ -28,6 +34,8 @@ public:
 	void drawGrid(sf::RenderWindow & window);
 	void collideAmmo(Ball & ammo, sf::RenderWindow & window);
 	bool destroyCluster(int row, int column);
+
+	int getPoppedBalls();
 };
 
 #endif
