@@ -69,45 +69,44 @@ void Grid::collideAmmo(Ball & ammo, sf::RenderWindow & window) {
 
 				if (distance < ammo.getRadius() + arr[i][j].getRadius()) { // ammo has collided with current ball
 					ammo.setVelocity(0, 0); // stop the ball
+				
+					float closestDistance = 1000.0; // arbitrary number that should be larger than any calculated distances
+					int closestRow = i, closestColumn = j;
+					float nextDistance;
+					if (i < 2 * rows - 1 && arr[i + 1][j].isDestroyed()) { // slot below current ball is available
+						nextDistance = sqrtf(powf((ammo.getPosition().x - arr[i + 1][j].getPosition().x), 2) +
+							powf((ammo.getPosition().y - arr[i + 1][j].getPosition().y), 2));
+						if (closestDistance > nextDistance) { // slot below current ball is closest 
+							closestDistance = nextDistance;
+							closestRow = i + 1;
+							closestColumn = j;
+						}
+					}
+					if (j > 0 && arr[i][j - 1].isDestroyed()) { // slot left of current ball is available
+						nextDistance = sqrtf(powf((ammo.getPosition().x - arr[i][j - 1].getPosition().x), 2) +
+							powf((ammo.getPosition().y - arr[i][j - 1].getPosition().y), 2));
+						if (closestDistance > nextDistance) { // slot left of current ball is closest 
+							closestDistance = nextDistance;
+							closestRow = i;
+							closestColumn = j - 1;
+						}
+					}
+					if (j < columns - 1 && arr[i][j + 1].isDestroyed()) { // slot right of current ball is available
+						nextDistance = sqrtf(powf((ammo.getPosition().x - arr[i][j + 1].getPosition().x), 2) +
+							powf((ammo.getPosition().y - arr[i][j + 1].getPosition().y), 2));
+						if (closestDistance > nextDistance) { // slot right of current ball is closest 
+							closestDistance = nextDistance;
+							closestRow = i;
+							closestColumn = j + 1;
+						}
+					}
+
+					ammo.setPosition(this->arr[closestRow][closestColumn].getPosition());
+					this->arr[closestRow][closestColumn] = ammo;
+					ammo.destroy();
+	
 					if (this->arr[i][j].getFillColor() == ammo.getFillColor() && this->destroyCluster(i, j)) {
 						ammo.destroy();
-					}
-					else {
-						float closestDistance = 1000.0;
-						int closestRow = i, closestColumn = j;
-						float nextDistance;
-						if (i < 2 * rows - 1 && arr[i + 1][j].isDestroyed()) { // slot below current ball is available
-							nextDistance = sqrtf(powf((ammo.getPosition().x - arr[i + 1][j].getPosition().x), 2) +
-								powf((ammo.getPosition().y - arr[i + 1][j].getPosition().y), 2));
-							if (closestDistance > nextDistance) { // slot below current ball is closest 
-								closestDistance = nextDistance;
-								closestRow = i + 1;
-								closestColumn = j;
-							}
-						}
-						if (j > 0 && arr[i][j - 1].isDestroyed()) { // slot left of current ball is available
-							nextDistance = sqrtf(powf((ammo.getPosition().x - arr[i][j - 1].getPosition().x), 2) +
-								powf((ammo.getPosition().y - arr[i][j - 1].getPosition().y), 2));
-							if (closestDistance > nextDistance) { // slot left of current ball is closest 
-								closestDistance = nextDistance;
-								closestRow = i;
-								closestColumn = j - 1;
-							}
-						}
-						if (j < columns - 1 && arr[i][j + 1].isDestroyed()) { // slot right of current ball is available
-							nextDistance = sqrtf(powf((ammo.getPosition().x - arr[i][j + 1].getPosition().x), 2) +
-								powf((ammo.getPosition().y - arr[i][j + 1].getPosition().y), 2));
-							if (closestDistance > nextDistance) { // slot right of current ball is closest 
-								closestDistance = nextDistance;
-								closestRow = i;
-								closestColumn = j + 1;
-							}
-						}
-
-						ammo.setPosition(this->arr[closestRow][closestColumn].getPosition());
-						this->arr[closestRow][closestColumn] = ammo;
-						ammo.destroy();
-	
 					}
 				}
 
